@@ -50,9 +50,7 @@ def calc_distances():
                 pichu_distance_list.append(distance)
             else:
                 pikachu_distance_list.append(distance)
-    return pichu_distance_list, pikachu_distance_list
 
-print "Hej"
 
 main_list=get_datapoints_from_file()
 main_list=shuffle_list(main_list)
