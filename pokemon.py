@@ -40,16 +40,17 @@ def strings_to_numbers(list):
             i[j]=float(i[j])
     return list
 
-def calc_distances():
-    pichu_distance_list=[]
-    pikachu_distance_list=[]
-    for test_point in test_list:
-        for data_point in main_list:
-            distance=np.sqrt(np.square(test_point[0]-data_point[0])+np.square(test_point[1]-data_point[1]))
-            if data_point[2]=="0":
-                pichu_distance_list.append(distance)
-            else:
-                pikachu_distance_list.append(distance)
+# def calc_distances():
+
+#             distance=np.sqrt(np.square(test_point[0]-data_point[0])+np.square(test_point[1]-data_point[1]))
+#             if data_point[2]=="0":
+#                 pichu_distance_list.append(distance)
+#             else:
+#                 pikachu_distance_list.append(distance)
+
+def go_through_data_points():
+     pass
+
 
 
 main_list=get_datapoints_from_file()
@@ -58,6 +59,10 @@ main_list=strings_to_numbers(main_list)
 
 test_list=get_testpoints_from_file()
 test_list=strings_to_numbers(test_list)
+
+for test_point in test_list:
+     go_through_data_points()
+
 
 print(main_list)
 print(test_list)
