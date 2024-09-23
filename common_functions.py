@@ -1,8 +1,5 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import random
-import numpy as np
-import re
+path1="datapoints.txt"
+path2="testpoints.txt"
 
 def get_datapoints_from_file():
     main_list=[]
@@ -37,11 +34,7 @@ def strings_to_numbers(list):
 def plot_data_points():
     colors=["r", "b"]
     for j in main_list:
-        plt.plot(j[0],j[1],f"{colors[int(j[2])]}.")
-
-def plot_test_points():
-    for j in test_list:
-        plt.plot(j[1], j[2], "g*")
+        plt.plot(j[0],j[1],f"{colors[int(j[2])]}*")
     
 def calculate_distance():
     pichu_distance_list=[]
@@ -57,26 +50,3 @@ def calculate_distance():
     else:
         classification.append([int(test_point[0]), 1])
     
-
-path1="datapoints.txt"
-path2="testpoints.txt"
-classification=[]
-pokemons=["Pichu", "Pikachu"]
-
-main_list=get_datapoints_from_file()
-main_list=shuffle_list(main_list)
-main_list=strings_to_numbers(main_list)
-
-test_list=get_testpoints_from_file()
-test_list=strings_to_numbers(test_list)
-
-plot_data_points()
-plot_test_points()
-plt.show()
-
-for test_point in test_list:
-     calculate_distance()
-
-for j in classification:
-    print (f"Pokemon # {j[0]} is classified as {pokemons[j[1]]}.")
-
