@@ -4,6 +4,9 @@ import random
 import numpy as np
 import re
 
+path1="datapoints.txt"
+path2="testpoints.txt"
+
 def get_datapoints_from_file():
     data_list=[]
     with open(path1, "r") as datapoints:
@@ -23,8 +26,6 @@ def get_testpoints_from_file():
             row_list=row.strip().split(" ")
             test_list.append(row_list)
         return test_list
-    
-
 
 def strings_to_numbers(list):
     for i in list:
@@ -34,7 +35,7 @@ def strings_to_numbers(list):
 
 def plot_data_points():
     colors=["r", "b"]
-    for j in main_list:
+    for j in data_list:
         plt.plot(j[0],j[1],f"{colors[int(j[2])]}.")
 
 def plot_test_points():
@@ -42,18 +43,9 @@ def plot_test_points():
         plt.plot(j[1], j[2], "g*")
     
 def calculate_distance(x):
-    pichu_distance_list=[]
-    pikachu_distance_list=[]
-    for data_point in main_list:
+    for data_point in data_list:
         distance=np.sqrt(np.square(x[1]-data_point[0])+np.square(x[2]-data_point[1]))
-        if data_point[2]==0:
-            pichu_distance_list.append(distance)
-        else:
-            pikachu_distance_list.append(distance)
-    if min(pichu_distance_list) < min(pikachu_distance_list):
-        return [x[0], 0]
-    else:
-        return [x[0], 1]
+        data_point.append(distance)
 
 def ask_for_width():
     while True:
@@ -76,14 +68,12 @@ def ask_for_height():
     return x
     
 
-path1="datapoints.txt"
-path2="testpoints.txt"
 classification=[]
 pokemons=["Pichu", "Pikachu"]
 
-main_list=get_datapoints_from_file()
-main_list=shuffle_list(main_list)
-main_list=strings_to_numbers(main_list)
+data_list=get_datapoints_from_file()
+data_list=shuffle_list(data_list)
+data_list=strings_to_numbers(data_list)
 
 test_list=get_testpoints_from_file()
 test_list=strings_to_numbers(test_list)
@@ -93,11 +83,24 @@ plot_test_points()
 plt.show()
 
 for test_point in test_list:
-    result=calculate_distance(test_point)
-    classification.append(result)
+    calculate_distance(test_point)
+    
+for j in range(len(test_list)):
+    classification_list=[]
+    data_list.sort(key = lambda x: x[j+3])
+    for k in range(10):
+        classification_list.append(data_list[k][2])
+    s=sum(classification_list)
+    if s==5:
+        print(f"Unable to determine type of pokemon # {test_list[j][0]}")
+    elif s > 5:
+        print(f"Pokemon # {test_list[j][0]} is probably Pikachu, based on {s} of 10 nearest points.")
+    else:
+        print(f"Pokemon # {test_list[j][0]} is probably Pichu, based on {10-s} of 10 nearest points.")        
 
-for j in classification:
-    print (f"Pokemon # {j[0]} is classified as {pokemons[j[1]]}.")
+
+
+        
 
 print("Now it's your turn! Please enter width and height for your pokemon!")
 print("The unit is cm, and your values should be between 10 cm and 40 cm.")
