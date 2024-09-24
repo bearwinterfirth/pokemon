@@ -86,7 +86,7 @@ for test_point in test_list:
     find_nearest()
 
 print("\nNow it's your turn! Please enter width and height for your pokemon!")
-print("The unit is cm, and your values should be between 10 cm and 50 cm.")
+print("The unit is cm, and your values should bex between 10 cm and 50 cm.")
 
 pokemon_number=5
 
