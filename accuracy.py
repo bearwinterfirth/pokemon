@@ -1,6 +1,8 @@
 import random
+import numpy as np
 
 path1="datapoints.txt"
+accuracy_list = []
 
 def get_datapoints_from_file():
     pichu_list=[]
@@ -24,6 +26,38 @@ def split_into_train_and_test(x):
     test_list=x[50:75]
     return train_list, test_list
 
+def strings_to_numbers(list):
+    for i in list:
+        for j in range(len(i)):
+            i[j]=float(i[j])
+    return list
+
+def calculate_distance(x):
+    for data_point in train_list:
+        distance=np.sqrt(np.square(x[0] - data_point[0]) + np.square(x[1] - data_point[1]))
+        data_point.append(distance)
+
+def find_10_nearest():
+    train_list.sort(key = lambda x: x[-1])
+    sum = 0
+    for j in range(10):
+        sum += int(train_list[j][2])
+    return sum
+
+def count_true_predictions(x):
+    global pred_pichu, pred_pikachu, correct_pichu, correct_pikachu
+    if x == 5:
+        x = random.choice([4, 6])
+    if x<5:
+        pred_pichu += 1
+        if test_point[2]==0:
+            correct_pichu +=1
+    else:
+        pred_pikachu += 1
+        if test_point[2]==1:
+            correct_pikachu +=1
+ 
+
 pichu_list, pikachu_list = get_datapoints_from_file()
 
 pichu_list=shuffle_list(pichu_list)
@@ -37,4 +71,17 @@ test_list=pichu_test_list + pikachu_test_list
 
 train_list=shuffle_list(train_list)
 test_list=shuffle_list(test_list)
+
+train_list=strings_to_numbers(train_list)
+test_list=strings_to_numbers(test_list)
+
+pred_pichu, pred_pikachu, correct_pichu, correct_pikachu = 0, 0, 0, 0
+
+for test_point in test_list:
+    calculate_distance(test_point)
+    result=find_10_nearest()
+    count_true_predictions(result)
+
+accuracy=(correct_pichu + correct_pikachu) / (len(test_list))
+accuracy_list.append(accuracy)
 
