@@ -4,7 +4,6 @@ import re
 
 path1="datapoints.txt"
 path2="testpoints.txt"
-pokemons=["Pichu", "Pikachu"]
 
 def get_datapoints_from_file():
     data_list=[]
@@ -98,7 +97,6 @@ for test_point in test_list:
 
 print("Now it's your turn! Please enter width and height for your pokemon!")
 print("The unit is cm, and your values should be between 10 cm and 50 cm.")
-
 pokemon_number=5
 
 while True:
