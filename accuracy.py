@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 path1="datapoints.txt"
 accuracy_list = []
@@ -56,32 +57,38 @@ def count_true_predictions(x):
         pred_pikachu += 1
         if test_point[2]==1:
             correct_pikachu +=1
- 
 
-pichu_list, pikachu_list = get_datapoints_from_file()
+for k in range(10):
+    pichu_list, pikachu_list = get_datapoints_from_file()
 
-pichu_list=shuffle_list(pichu_list)
-pikachu_list=shuffle_list(pikachu_list)
+    pichu_list=shuffle_list(pichu_list)
+    pikachu_list=shuffle_list(pikachu_list)
 
-pichu_train_list, pichu_test_list=split_into_train_and_test(pichu_list)
-pikachu_train_list, pikachu_test_list=split_into_train_and_test(pikachu_list)
+    pichu_train_list, pichu_test_list=split_into_train_and_test(pichu_list)
+    pikachu_train_list, pikachu_test_list=split_into_train_and_test(pikachu_list)
 
-train_list=pichu_train_list + pikachu_train_list
-test_list=pichu_test_list + pikachu_test_list
+    train_list=pichu_train_list + pikachu_train_list
+    test_list=pichu_test_list + pikachu_test_list
 
-train_list=shuffle_list(train_list)
-test_list=shuffle_list(test_list)
+    train_list=shuffle_list(train_list)
+    test_list=shuffle_list(test_list)
 
-train_list=strings_to_numbers(train_list)
-test_list=strings_to_numbers(test_list)
+    train_list=strings_to_numbers(train_list)
+    test_list=strings_to_numbers(test_list)
 
-pred_pichu, pred_pikachu, correct_pichu, correct_pikachu = 0, 0, 0, 0
+    pred_pichu, pred_pikachu, correct_pichu, correct_pikachu = 0, 0, 0, 0
 
-for test_point in test_list:
-    calculate_distance(test_point)
-    result=find_10_nearest()
-    count_true_predictions(result)
+    for test_point in test_list:
+        calculate_distance(test_point)
+        result=find_10_nearest()
+        count_true_predictions(result)
 
-accuracy=(correct_pichu + correct_pikachu) / (len(test_list))
-accuracy_list.append(accuracy)
+    accuracy=(correct_pichu + correct_pikachu) / (len(test_list))
+    accuracy_list.append(accuracy)
 
+
+[plt.plot(x, accuracy_list[x], "r*") for x in range(10)]
+plt.ylim(0.5,1)
+plt.show()
+
+print(f"Mean accuracy is {np.mean(accuracy_list)}.\n")
