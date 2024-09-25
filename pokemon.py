@@ -49,7 +49,7 @@ def calculate_distance(x):
 def find_nearest():
     data_list.sort(key = lambda x: x[-1])
     type=int(data_list[0][2])
-    print(f"Pokemon number {int(test_point[0])} is classified as {pokemons[type]}.")
+    print(f"Pokemon number {int(test_point[0])}, with width {test_point[1]} and height {test_point[2]}, is classified as {pokemons[type]}.")
     
 def ask_for_width():
     while True:
@@ -86,7 +86,7 @@ for test_point in test_list:
     find_nearest()
 
 print("\nNow it's your turn! Please enter width and height for your pokemon!")
-print("The unit is cm, and your values should bex between 10 cm and 50 cm.")
+print("The unit is cm, and your values should be between 10 cm and 50 cm.")
 
 pokemon_number=5
 
@@ -98,7 +98,7 @@ while True:
     calculate_distance(test_point)
     find_nearest()
 
-    try_again=input("\nDo you have more pokemons to classify? (y/n) ")
+    try_again=input("\nDo you have any more pokemons to classify? (y/n) ")
     if try_again != "y":
         break
     pokemon_number += 1    

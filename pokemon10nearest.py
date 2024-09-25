@@ -46,11 +46,21 @@ def calculate_distance(x):
         distance=np.sqrt(np.square(x[1] - data_point[0]) + np.square(x[2] - data_point[1]))
         data_point.append(distance)
 
-def find_nearest():
+def find_10_nearest():
     data_list.sort(key = lambda x: x[-1])
-    type=int(data_list[0][2])
-    print(f"Pokemon number {int(test_point[0])} is classified as {pokemons[type]}.")
-    
+    sum = 0
+    for j in range(10):
+        sum += int(data_list[j][2])
+    return sum
+
+def present_result(x):
+    if x == 5:
+        print(f"Unable to classify Pokemon number {int(test_point[0])}, with width {int(test_point[1])} and height {int(test_point[2])}.")
+        print(f"The vote is 5-5.\n")
+    else:
+        print(f"Pokemon number {int(test_point[0])}, with width {test_point[1]} and height {int(test_point[2])} is classified as {"Pichu" if x < 5 else "Pikachu"}.")
+        print(f"The vote is {max(x, 10-x)}-{min(x, 10-x)}.\n")
+
 def ask_for_width():
     while True:
         x=(input("Width (cm)? "))
@@ -83,10 +93,11 @@ plt.show()
 
 for test_point in test_list:
     calculate_distance(test_point)
-    find_nearest()
+    result=find_10_nearest()
+    present_result(result)
 
-print("\nNow it's your turn! Please enter width and height for your pokemon!")
-print("The unit is cm, and your values should bex between 10 cm and 50 cm.")
+print("Now it's your turn! Please enter width and height for your pokemon!")
+print("The unit is cm, and your values should be between 10 cm and 50 cm.")
 
 pokemon_number=5
 
@@ -96,9 +107,10 @@ while True:
 
     test_point=(pokemon_number,width,height)
     calculate_distance(test_point)
-    find_nearest()
+    result=find_10_nearest()
+    present_result(result)
 
-    try_again=input("\nDo you have more pokemons to classify? (y/n) ")
+    try_again=input("Do you have any more pokemons to classify? (y/n) ")
     if try_again != "y":
         break
     pokemon_number += 1    
