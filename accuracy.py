@@ -9,7 +9,7 @@ def get_datapoints_from_file():
     pichu_list=[]
     pikachu_list=[]
     with open(path1, "r") as datapoints:
-        headers=datapoints.readline()
+        skip_first_line=datapoints.readline()
         for row in datapoints:
             row_list=row.strip().split(",")
             if int(row_list[2]) == 0:
@@ -61,20 +61,20 @@ def count_true_predictions(x):
 for k in range(10):
     pichu_list, pikachu_list = get_datapoints_from_file()
 
-    pichu_list=shuffle_list(pichu_list)
-    pikachu_list=shuffle_list(pikachu_list)
+    pichu_list = shuffle_list(pichu_list)
+    pikachu_list = shuffle_list(pikachu_list)
 
-    pichu_train_list, pichu_test_list=split_into_train_and_test(pichu_list)
-    pikachu_train_list, pikachu_test_list=split_into_train_and_test(pikachu_list)
+    pichu_train_list, pichu_test_list = split_into_train_and_test(pichu_list)
+    pikachu_train_list, pikachu_test_list = split_into_train_and_test(pikachu_list)
 
-    train_list=pichu_train_list + pikachu_train_list
-    test_list=pichu_test_list + pikachu_test_list
+    train_list = pichu_train_list + pikachu_train_list
+    test_list = pichu_test_list + pikachu_test_list
 
-    train_list=shuffle_list(train_list)
-    test_list=shuffle_list(test_list)
+    train_list = shuffle_list(train_list)
+    test_list = shuffle_list(test_list)
 
-    train_list=strings_to_numbers(train_list)
-    test_list=strings_to_numbers(test_list)
+    train_list = strings_to_numbers(train_list)
+    test_list = strings_to_numbers(test_list)
 
     pred_pichu, pred_pikachu, correct_pichu, correct_pikachu = 0, 0, 0, 0
 
@@ -86,8 +86,10 @@ for k in range(10):
     accuracy=(correct_pichu + correct_pikachu) / (len(test_list))
     accuracy_list.append(accuracy)
 
-
-[plt.plot(x, accuracy_list[x], "r*") for x in range(10)]
+[plt.plot(x+1, accuracy_list[x], "r*") for x in range(10)]
+plt.xlabel("Try #")
+plt.xticks(np.arange(1,11))
+plt.ylabel("Accuracy (%)")
 plt.ylim(0.5,1)
 plt.show()
 

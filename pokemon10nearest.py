@@ -2,13 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import re
 
+
 path1="datapoints.txt"
 path2="testpoints.txt"
 
 def get_datapoints_from_file():
     data_list=[]
     with open(path1, "r") as datapoints:
-        headers=datapoints.readline()
+        skip_first_line=datapoints.readline()
         for row in datapoints:
             row_list=row.strip().split(",")
             data_list.append(row_list)
@@ -35,6 +36,7 @@ def plot_data_points():
     colors=["r", "b"]
     for j in data_list:
         plt.plot(j[0],j[1],f"{colors[int(j[2])]}.")
+    plt.legend(["Pichu", "Pikachu"])
 
 def plot_test_points():
     for j in test_list:
@@ -57,9 +59,9 @@ def present_result(x):
         print(f"Unable to classify Pokemon number {int(test_point[0])}, with width {int(test_point[1])} and height {int(test_point[2])}.")
         print(f"The vote is 5-5.\n")
     else:
-        print(f"Pokemon number {int(test_point[0])}, with width {test_point[1]} and height {int(test_point[2])} is classified as {"Pichu" if x < 5 else "Pikachu"}.")
+        print(f"Pokemon number {int(test_point[0])}, with width {test_point[1]} and height {test_point[2]} is classified as {"Pichu" if x < 5 else "Pikachu"}.")
         print(f"The vote is {max(x, 10-x)}-{min(x, 10-x)}.\n")
-
+    
 def ask_for_width():
     while True:
         x=(input("Width (cm)? "))
@@ -80,6 +82,11 @@ def ask_for_height():
         print("Height must be a number between 10 and 50!")
     return x
 
+def draw_circle(c, r):
+    x=np.linspace(0, 2*np.pi)
+    plt.plot(r*np.cos(x)+c[0], r*np.sin(x)+c[1])
+    plt.axis("equal")
+
 data_list=get_datapoints_from_file()
 data_list=strings_to_numbers(data_list)
 
@@ -94,7 +101,7 @@ for test_point in test_list:
     calculate_distance(test_point)
     result=find_10_nearest()
     present_result(result)
-
+    
 print("Now it's your turn! Please enter width and height for your pokemon!")
 print("The unit is cm, and your values should be between 10 cm and 50 cm.")
 pokemon_number=5
@@ -107,6 +114,11 @@ while True:
     calculate_distance(test_point)
     result=find_10_nearest()
     present_result(result)
+   
+    plt.plot(width, height, "y*")
+    draw_circle((width, height), data_list[9][-1])
+    plot_data_points()
+    plt.show()
 
     try_again=input("Do you have any more pokemons to classify? (y/n) ")
     if try_again != "y":

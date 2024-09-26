@@ -9,7 +9,7 @@ pokemons=["Pichu", "Pikachu"]
 def get_datapoints_from_file():
     data_list=[]
     with open(path1, "r") as datapoints:
-        headers=datapoints.readline()
+        skip_first_line=datapoints.readline()
         for row in datapoints:
             row_list=row.strip().split(",")
             data_list.append(row_list)
@@ -36,6 +36,7 @@ def plot_data_points():
     colors=["r", "b"]
     for j in data_list:
         plt.plot(j[0],j[1],f"{colors[int(j[2])]}.")
+    plt.legend(["Pichu", "Pikachu"])
 
 def plot_test_points():
     for j in test_list:
