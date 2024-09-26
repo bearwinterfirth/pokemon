@@ -32,7 +32,7 @@ def get_testpoints_from_file():
         return test_list
     
 def strings_to_numbers(list):
-    # Formatting all strings as floats. Some will later be formatted as integers.
+    # Converting all strings as floats. Some will later be converted to integers.
     for i in list:
         for j in range(len(i)):
             i[j]=float(i[j])
@@ -78,7 +78,7 @@ def ask_for_width():
     return x
 
 def ask_for_height():
-    # User inputs width of own pokemon
+    # User inputs height of own pokemon
     while True:
         x=(input("Height (cm)? "))
         if x.isdigit():
