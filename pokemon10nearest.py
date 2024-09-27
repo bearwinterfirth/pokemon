@@ -38,18 +38,17 @@ def strings_to_numbers(list):
             i[j]=float(i[j])
     return list
 
-def plot_data_points():
-    # Plotting all 150 data_points (x=width, y=height) for visibility.
-    # Red=Pichu, Blue=Pikachu (color determined by last element in list)
-    colors=["r", "b"]
-    for j in data_list:
-        plt.plot(j[0],j[1],f"{colors[int(j[2])]}.")
-    plt.legend(["Pichu", "Pikachu"])
-
-def plot_test_points():
-    # Plotting the 4 test_points (green stars) with the data_points for visibility
-    for j in test_list:
-        plt.plot(j[1], j[2], "g*")
+def plot_datapoints_and_testpoints():
+  # Plotting all 150 datapoints (x=width, y=height) and 4 testpoints for visibility
+    # Data_list is split into pichu_list and pikachu_list for easier plotting
+    pichu_list=[x for x in data_list if x[2]==0]
+    pikachu_list=[x for x in data_list if x[2]==1]
+    plt.scatter([pichu_list[j][0] for j in range(75)], [pichu_list[j][1] for j in range(75)], color="b", label="Pichu")
+    plt.scatter([pikachu_list[j][0] for j in range(75)], [pikachu_list[j][1] for j in range(75)], color="r")
+    plt.scatter([test_list[j][1] for j in range(4)], [test_list[j][2] for j in range(4)], color="g", marker="*")
+    plt.legend(["Pichu" , "Pikachu", "Testpoints"], loc="upper left")
+    plt.xlabel("Width")
+    plt.ylabel("Height")
     
 def calculate_distance(testpoint):
     # For each testpoint, the euclidean distances to all 150 datapoints are calculated
@@ -83,7 +82,7 @@ def ask_for_width():
     # User inputs width of own pokemon
     while True:
         x=(input("Width (cm)? "))
-        if x.isdigit():
+        if x.replace(".", "").isdigit():
             x=float(x)
             if x >= 10 and x <= 50:
                 break 
@@ -94,7 +93,7 @@ def ask_for_height():
     # User inputs height of own pokemon
     while True:
         x=(input("Height (cm)? "))
-        if x.isdigit():
+        if x.replace(".", "").isdigit():
             x=float(x)
             if x >= 10 and x <= 50:
                 break 
@@ -116,8 +115,7 @@ data_list=strings_to_numbers(data_list)
 test_list=get_testpoints_from_file()
 test_list=strings_to_numbers(test_list)
 
-plot_data_points()
-plot_test_points()
+plot_datapoints_and_testpoints()
 plt.show()
 
 for testpoint in test_list:
@@ -142,8 +140,10 @@ while True:
     present_result(result)
    
     plt.plot(width, height, "y*")            # draw circle which shows 10 nearest points from user's pokemon
+    plot_datapoints_and_testpoints()
     draw_circle((width, height), data_list[9][-1])
-    plot_data_points()
+    plt.plot(width, height, "y*", markersize=10)             # Plot user's pokemon as yellow star
+    plt.legend(["Your Pokemon", "Pichu" , "Pikachu", "Testpoints", "10-NN"], loc="upper left")
     plt.show()
 
     try_again=input("Do you have any more pokemons to classify? (y/n) ")

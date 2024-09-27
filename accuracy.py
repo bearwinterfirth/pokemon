@@ -70,7 +70,7 @@ def count_true_predictions(x):
         if test_point[2]==1:
             correct_pikachu +=1
 
-for k in range(10):                                             # the program will run 10 times to get a mean accuracy value
+for k in range(10):                                             # The program will run 10 times to get a mean accuracy value
 
     pichu_list, pikachu_list = get_datapoints_from_file()       # 2 lists of 75 pichu and 75 pikachu respectively
 

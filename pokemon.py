@@ -47,6 +47,8 @@ def plot_datapoints_and_testpoints():
     plt.scatter([pikachu_list[j][0] for j in range(75)], [pikachu_list[j][1] for j in range(75)], color="r")
     plt.scatter([test_list[j][1] for j in range(4)], [test_list[j][2] for j in range(4)], color="g", marker="*")
     plt.legend(["Pichu" , "Pikachu", "Testpoints"], loc="upper left")
+    plt.xlabel("Width")
+    plt.ylabel("Height")
     
 def calculate_distance(testpoint):
     # For each testpoint, the euclidean distances to all 150 datapoints are calculated
