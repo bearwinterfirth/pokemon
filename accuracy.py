@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 path1="datapoints.txt"
+path2="mean_accuracy.txt"
 accuracy_list = []              # The results of the 10 tries will be stored here
 
 def get_datapoints_from_file():
@@ -61,6 +62,8 @@ def count_true_predictions(x):
     global pred_pichu, pred_pikachu, correct_pichu, correct_pikachu
     if x == 5:
         x = random.choice([4, 6])
+    with open(path2, "a") as mean_accuracy:
+            mean_accuracy.write(f"Predicted {int(x//5.5)}, actual {int(test_point[2])}\n")          
     if x<5:
         pred_pichu += 1
         if test_point[2]==0:
@@ -70,7 +73,13 @@ def count_true_predictions(x):
         if test_point[2]==1:
             correct_pikachu +=1
 
-for k in range(10):                                             # The program will run 10 times to get a mean accuracy value
+with open(path2, "w") as mean_accuracy:
+    mean_accuracy.write("Measuring accuracy for Pokemon classifying model, 10-NN")
+
+for k in range(10): 
+
+    with open(path2, "a") as mean_accuracy:
+        mean_accuracy.write(f"\n\nTry number {k+1}\n")                                            # The program will run 10 times to get a mean accuracy value
 
     pichu_list, pikachu_list = get_datapoints_from_file()       # 2 lists of 75 pichu and 75 pikachu respectively
 
@@ -97,6 +106,8 @@ for k in range(10):                                             # The program wi
 
     accuracy=(correct_pichu + correct_pikachu) / (pred_pichu + pred_pikachu)
     accuracy_list.append(accuracy)                              # the accuracy is calculated and stored in the accuracy_list, which will hold 10 accuracies
+    with open(path2, "a") as mean_accuracy:
+        mean_accuracy.write(f"TP = {correct_pikachu}, TN = {correct_pichu}, FP = {25-correct_pichu}, FN = {25-correct_pikachu}, Accuracy = {accuracy}") 
 
 [plt.plot(x+1, accuracy_list[x], "r*") for x in range(10)]      # plot the accuracy from all 10 tries
 plt.xlabel("Try #")
@@ -105,4 +116,7 @@ plt.ylabel("Accuracy (%)")
 plt.ylim(0.5,1)
 plt.show()
 
-print(f"Mean accuracy is {np.mean(accuracy_list)}.\n")          # report the mean accuracy
+with open(path2, "a") as mean_accuracy:
+    mean_accuracy.write(f"\n\nMean accuracy from 10 tries is {np.mean(accuracy_list)}.") 
+
+print(f"\nMean accuracy is {np.mean(accuracy_list)}.\n")          # report the mean accuracy
