@@ -80,7 +80,7 @@ def count_true_predictions(x):
 
 with open(path2, "w") as mean_accuracy:
     # Write lead-in
-    mean_accuracy.write("Measuring accuracy for Pokemon classifying model, 10-NN")
+    mean_accuracy.write("Measuring accuracy for Pokemon classifying model, 10-NN\n0 = Pichu, 1 = Pikachu")
 
 for k in range(10): 
 
@@ -120,12 +120,13 @@ for k in range(10):
 plt.xlabel("Try #")
 plt.xticks(np.arange(1,11))
 plt.ylabel("Accuracy (%)")
-plt.ylim(0.5,1)
-plt.title("Model accuracy from 10 tries")
+plt.ylim(0.6,1)
+plt.title("10-NN model accuracy from 10 tries")
 plt.show()
 
 with open(path2, "a") as mean_accuracy:
     # Write total mean accuracy
     mean_accuracy.write(f"\n\nMean accuracy from 10 tries is {np.mean(accuracy_list)}.") 
 
-print(f"\nMean accuracy is {np.mean(accuracy_list)}.\n")          
+print(f"\nMean accuracy is {np.mean(accuracy_list)}.")
+print("All results are written to the file mean_accuracy.txt.\n")          
