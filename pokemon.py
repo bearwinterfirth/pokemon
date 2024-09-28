@@ -67,23 +67,27 @@ def calculate_distance(testpoint):
 def ask_for_width():
     # User inputs width of own pokemon
     while True:
-        x=(input("Width (cm)? "))
-        if x.replace(".", "").isdigit():
-            x=float(x)
-            if x >= 10 and x <= 50:
-                break 
-        print("Width must be a number between 10 and 50!")
+        try:
+            x = float(input("Width (cm)? "))
+            if x < 10 or x > 50:
+                raise ValueError
+            else:
+                break
+        except ValueError:
+            print("Width must be a number between 10 and 50!")
     return x
 
 def ask_for_height():
     # User inputs height of own pokemon
     while True:
-        x=(input("Height (cm)? "))
-        if x.replace(".", "").isdigit():
-            x=float(x)
-            if x >= 10 and x <= 50:
-                break 
-        print("Height must be a number between 10 and 50!")
+        try:
+            x = float(input("Height (cm)? "))
+            if x < 10 or x > 50:
+                raise ValueError
+            else:
+                break
+        except ValueError:
+            print("Height must be a number between 10 and 50!")
     return x
 
 

@@ -121,10 +121,11 @@ plt.xlabel("Try #")
 plt.xticks(np.arange(1,11))
 plt.ylabel("Accuracy (%)")
 plt.ylim(0.5,1)
+plt.title("Model accuracy from 10 tries")
 plt.show()
 
 with open(path2, "a") as mean_accuracy:
     # Write total mean accuracy
     mean_accuracy.write(f"\n\nMean accuracy from 10 tries is {np.mean(accuracy_list)}.") 
 
-print(f"\nMean accuracy is {np.mean(accuracy_list)}.\n")          # print the mean accuracy in terminal
+print(f"\nMean accuracy is {np.mean(accuracy_list)}.\n")          
