@@ -10,8 +10,8 @@ def get_datapoints_from_file():
     # Each row is stored as a list with 3 elements: [Width, Height, Type (0=Pichu, 1=Pikachu)]
     # These lists will be known as datapoints.
     # They are stored in two different nested lists, pichu_list and pikachu_list, based on their type
-    pichu_list=[]
-    pikachu_list=[]
+    pichu_list = []
+    pikachu_list = []
     with open(path1, "r") as datapoints:
         skip_first_line=datapoints.readline()
         for row in datapoints:
@@ -37,14 +37,14 @@ def strings_to_numbers(list):
     # Converting all strings as floats. Some will later be converted to integers.
     for i in list:
         for j in range(len(i)):
-            i[j]=float(i[j])
+            i[j] = float(i[j])
     return list
 
 def calculate_distance(x):
     # For each testpoint, the euclidean distances to all 100 datapoints are calculated
     # Each datapoint is appended with the distance to the testpoint examined at the moment
     for datapoint in train_list:
-        distance=np.sqrt(np.square(x[0] - datapoint[0]) + np.square(x[1] - datapoint[1]))
+        distance = np.sqrt(np.square(x[0] - datapoint[0]) + np.square(x[1] - datapoint[1]))
         datapoint.append(distance)
 
     # The train_list is sorted according to the latest appendices (distances)
@@ -108,7 +108,7 @@ for k in range(10):
     TP, TN, FP, FN = 0, 0, 0, 0                                 # resetting counters
 
     for test_point in test_list:                                # predict type for all 50 test points, and check if the prediction is correct
-        result=calculate_distance(test_point)
+        result = calculate_distance(test_point)
         count_true_predictions(result)
 
     accuracy=(TP + TN) / (TP + TN + FP + FN)
