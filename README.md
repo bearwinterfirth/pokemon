@@ -17,7 +17,7 @@ For Task # 3-4 (Bonus tasks), check out **accuracy.py**
 >The testpoints are split into one training list (100 datapoints) and
 one testing list (50 points).
 The test points are classified as Pichu/Pikachu (using 10-NN)
-and the accuracy of the model is calculated by checking how big percentage of
+and the accuracy of the model is calculated by checking how large percentage of
 the predictions were actually true.
 
->All this is done 10 times, and the mean accuracy is calculated. All results are written to the file **mean_accuracy.txt**.
+>This is carried out 10 times, and the mean accuracy is calculated. All results are written to the file **mean_accuracy.txt**.

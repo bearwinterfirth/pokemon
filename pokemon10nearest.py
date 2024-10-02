@@ -48,6 +48,7 @@ def plot_datapoints_and_testpoints():
     plt.legend(["Pichu" , "Pikachu", "Testpoints"], loc="upper left")
     plt.xlabel("Width")
     plt.ylabel("Height")
+    plt.title("Width and height of some Pokemons")
     
 def calculate_distance(testpoint):
     # For each testpoint, the euclidean distances to all 150 datapoints are calculated
