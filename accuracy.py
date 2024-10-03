@@ -58,7 +58,7 @@ def calculate_distance(x):
 def count_true_predictions(x):
     # Predicts pichu (x<5) or pikachu (x>5) and checks if the prediction is correct
     # If x=5, there will be a random choice between predicting pichu or pikachu
-    # The number of correct predictions is summed
+    # The number of correct/false predictions is summed
     # Also, every result is written to the file mean_accuracy.txt for reference
     global TP, TN, FP, FN
     if x == 5:
@@ -116,11 +116,11 @@ for k in range(10):
     with open(path2, "a") as mean_accuracy:
         mean_accuracy.write(f"TP = {TP}, TN = {TN}, FP = {FP}, FN = {FN}, Accuracy = {accuracy}") 
 
-[plt.plot(x+1, accuracy_list[x], "r*") for x in range(10)]      # plot the accuracy from all 10 tries
+[plt.bar(x+1, accuracy_list[x], color="b") for x in range(10)]      # plot the accuracy from all 10 tries
 plt.xlabel("Try #")
 plt.xticks(np.arange(1,11))
 plt.ylabel("Accuracy (%)")
-plt.ylim(0.6,1)
+plt.ylim(0.7,1)
 plt.title("10-NN model accuracy from 10 tries")
 plt.show()
 
