@@ -49,7 +49,7 @@ def calculate_distance(x):
 
     # The train_list is sorted according to the latest appendices (distances)
     # The 10 first datapoints in the sorted list are the 10 nearest points
-    train_list.sort(key = lambda x: x[-1])
+    train_list.sort(key = lambda x: x[-1])          # I learned this sorting method on https://www.geeksforgeeks.org/python-sort-list-according-second-element-sublist/
     sum = 0
     for j in range(10):
         sum += int(train_list[j][2])

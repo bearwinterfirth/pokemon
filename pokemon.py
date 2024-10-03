@@ -61,7 +61,7 @@ def calculate_distance(testpoint):
     # The data_list is sorted (from min to max) according to the latest appendices (distances)
     # The first datapoint in the sorted list is the nearest point
     # Its type (0=Pichu, 1=Pikachu) is examined, and the result is printed   
-    data_list.sort(key = lambda x: x[-1])
+    data_list.sort(key = lambda x: x[-1])           # I learned this sorting method on https://www.geeksforgeeks.org/python-sort-list-according-second-element-sublist/
     type = int(data_list[0][2])
     print(f"Pokemon number {int(testpoint[0])}, with width {testpoint[1]} and height {testpoint[2]}, is classified as {"Pichu" if type == 0 else "Pikachu"}.")
     

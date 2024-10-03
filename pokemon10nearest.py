@@ -61,7 +61,7 @@ def calculate_distance(testpoint):
     # The data_list is sorted (min to max) according to the latest appendices (distances)
     # The 10 first datapoints in the sorted list are the 10 nearest points
     # Their types (0=Pichu, 1=Pikachu) are added together, which yields a sum between 0 (only pichus) and 10 (only pikachus)   
-    data_list.sort(key = lambda x: x[-1])
+    data_list.sort(key = lambda x: x[-1])           # I learned this sorting method on https://www.geeksforgeeks.org/python-sort-list-according-second-element-sublist/
     sum = 0
     for j in range(10):
         sum += int(data_list[j][2])
